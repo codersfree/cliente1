@@ -14,6 +14,7 @@ use App\Models\User;
 
 class AuthenticatedSessionController extends Controller
 {
+
     /**
      * Display the login view.
      *
@@ -55,27 +56,27 @@ class AuthenticatedSessionController extends Controller
             'email' => $request->email
         ], $service['data']);
 
-        if (!$user->accessToken->count()) {
+        if (!$user->accessToken) {
 
             $response = Http::withHeaders([
                 'Accept' => 'application/json'
             ])->post('http://api.codersfree.test/oauth/token', [
                 'grant_type' => 'password',
-                'client_id' => '93c2f5e6-47ed-4630-b4ab-356e871a8124',
-                'client_secret' => '9MS299v6kzdnyPjWgO4cEOzuG8kObg7hkG9UQlmk',
+                'client_id' => "93c7a4b3-5b0d-4b49-a098-02b8f202b8fe",
+                'client_secret' => "HYFMtf5JKphxAMlivfFS3981HajejVlxbaCuywA0",
                 'username' => $request->email,
                 'password' => $request->password
             ]);
-
+    
             $access_token = $response->json();
-
+    
             $user->accessToken()->create([
                 'service_id' => $service['data']['id'],
                 'access_token' => $access_token['access_token'],
                 'refresh_token' => $access_token['refresh_token'],
                 'expires_at' => now()->addSecond($access_token['expires_in'])
             ]);
-
+            
         }
         
         Auth::login($user, $request->remember);
