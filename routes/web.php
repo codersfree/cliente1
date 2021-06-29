@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Http;
 
+use App\Http\Controllers\PostController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,21 +26,4 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('posts', function () {
-
-    $response = Http::withHeaders([
-
-        'Accept' => 'application/json',
-        'Authorization' => 'Bearer ' . auth()->user()->accessToken->access_token
-        
-    ])->post('http://api.codersfree.test/v1/posts', [
-        'name' => 'Esto es una prueba de post',
-        'slug' => 'esto-es-una-prueba-de-post',
-        'extract' => 'sdsafsdfsd',
-        'body' => 'asdasdasdasdasd',
-        'category_id' => 1
-    ]);
-
-    return $response->json();
-
-})->middleware('auth');
+Route::get('posts', [PostController::class, 'store'])->middleware('auth');
