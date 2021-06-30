@@ -10,6 +10,8 @@ class PostController extends Controller
 {
     public function store(){
 
+        $this->resolveAuthorization();
+
         $response = Http::withHeaders([
             'Accept'    => 'application/json',
             'Authorization' => 'Bearer ' . auth()->user()->accessToken->access_token
