@@ -62,7 +62,7 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
         ]);
 
-        $this->getAccessToken($user, $service);
+        $this->setAccessToken($user, $service);
         
         event(new Registered($user));
 

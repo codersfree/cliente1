@@ -21,7 +21,8 @@ class Controller extends BaseController
                 'grant_type' => 'refresh_token',
                 'refresh_token' => auth()->user()->accessToken->refresh_token,
                 'client_id' => config('services.codersfree.client_id'),
-                'client_secret' => config('services.codersfree.client_secret')
+                'client_secret' => config('services.codersfree.client_secret'),
+                'scope' => 'create-post read-post update-post delete-post'
             ]);
 
             $access_token = $response->json();

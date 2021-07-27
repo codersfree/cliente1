@@ -62,7 +62,7 @@ class AuthenticatedSessionController extends Controller
 
         if (!$user->accessToken) {
 
-            $this->getAccessToken($user, $service);
+            $this->setAccessToken($user, $service);
             
         }
         
